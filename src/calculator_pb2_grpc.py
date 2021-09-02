@@ -19,12 +19,23 @@ class CalculatorStub(object):
                 request_serializer=calculator__pb2.Number.SerializeToString,
                 response_deserializer=calculator__pb2.Number.FromString,
                 )
+        self.Timestamp = channel.unary_unary(
+                '/Calculator/Timestamp',
+                request_serializer=calculator__pb2.EmptyRequest.SerializeToString,
+                response_deserializer=calculator__pb2.Message.FromString,
+                )
 
 
 class CalculatorServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SquareRoot(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Timestamp(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_CalculatorServicer_to_server(servicer, server):
                     servicer.SquareRoot,
                     request_deserializer=calculator__pb2.Number.FromString,
                     response_serializer=calculator__pb2.Number.SerializeToString,
+            ),
+            'Timestamp': grpc.unary_unary_rpc_method_handler(
+                    servicer.Timestamp,
+                    request_deserializer=calculator__pb2.EmptyRequest.FromString,
+                    response_serializer=calculator__pb2.Message.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class Calculator(object):
         return grpc.experimental.unary_unary(request, target, '/Calculator/SquareRoot',
             calculator__pb2.Number.SerializeToString,
             calculator__pb2.Number.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Timestamp(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Calculator/Timestamp',
+            calculator__pb2.EmptyRequest.SerializeToString,
+            calculator__pb2.Message.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

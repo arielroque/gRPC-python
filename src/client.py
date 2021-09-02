@@ -1,4 +1,5 @@
 import grpc
+from calculator import timestamp
 
 # import the generated classes
 import calculator_pb2
@@ -12,8 +13,13 @@ stub = calculator_pb2_grpc.CalculatorStub(channel)
 
 # create a valid request message
 number = calculator_pb2.Number(value=16)
+emptyRequest = calculator_pb2.EmptyRequest()
 
 # make the call
 response = stub.SquareRoot(number)
+
+print(response.value)
+
+response = stub.Timestamp(emptyRequest)
 
 print(response.value)

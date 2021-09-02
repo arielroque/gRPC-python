@@ -19,6 +19,11 @@ class CalculatorServicer(calculator_pb2_grpc.CalculatorServicer):
         response = calculator_pb2.Number()
         response.value = calculator.square_root(request.value)
         return response
+    
+    def Timestamp(self, request, context):
+        response = calculator_pb2.Message()
+        response.value = calculator.timestamp()
+        return response
 
 
 # create a gRPC server

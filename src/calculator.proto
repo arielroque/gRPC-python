@@ -4,6 +4,13 @@ message Number {
     float value = 1;
 }
 
+message EmptyRequest {}
+
+message Message {
+    string value = 1;
+}
+
 service Calculator {
     rpc SquareRoot(Number) returns (Number){}
+    rpc Timestamp(EmptyRequest) returns (Message){}
 }

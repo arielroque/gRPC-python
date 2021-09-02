@@ -22,20 +22,24 @@ source env/bin/activate
 ## :building_construction: Building 
 
 ```bash
-python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. src/calculator.proto
 
+#Install requirements
+pip3 install -r requirements.txt
+
+#Generate files from types created in Protocol Buffer
+cd src
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. calculator.proto
 ```
 
 ## :runner: Running Server
 
 ```bash
-python src/server.py
+python server.py
 ```
-
 
 ## :runner: Running Client
 
 ```bash
-python src/client.py
+python client.py
 ```
 

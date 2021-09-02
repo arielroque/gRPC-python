@@ -1,5 +1,4 @@
 import grpc
-from calculator import timestamp
 
 # import the generated classes
 import calculator_pb2
@@ -16,10 +15,8 @@ number = calculator_pb2.Number(value=16)
 emptyRequest = calculator_pb2.EmptyRequest()
 
 # make the call
-response = stub.SquareRoot(number)
+square_root = stub.SquareRoot(number)
+timestamp = stub.Timestamp(emptyRequest)
 
-print(response.value)
-
-response = stub.Timestamp(emptyRequest)
-
-print(response.value)
+print(square_root.value)
+print(timestamp.value)
